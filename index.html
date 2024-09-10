@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="midAutumn">
+        <div class="midAutumn_box">
+            <h3>中秋活动</h3>
+            <p>
+                <input type="radio" name="agreement" id="checkRadio">
+                我同意<a href="">用户协议</a>
+            </p>
+            <button class="enterButton" id="enterButton" disabled>进入</button>
+        </div>
+        <div class="login_outBox" id="loginOutBox">
+            <div class="login_box">
+                <h3>小红书登录</h3>
+                <div class="img_box">
+
+                </div>
+                <div class="tit">
+                    <p>请使用小红书扫描二维码登录</p>
+                    <p>“企业智能管理”</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const checkRadio = document.getElementById('checkRadio');
+    const enterButton = document.getElementById('enterButton');
+    const loginOutBox = document.getElementById('loginOutBox');
+
+    checkRadio.addEventListener('click', function() {
+        if (this.checked) {
+            enterButton.disabled = false;
+            enterButton.classList.add('active');
+        }
+    });
+
+    enterButton.addEventListener('click', function() {
+
+        loginOutBox.style.display = 'block';
+    });
+</script>
+</html>
