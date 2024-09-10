@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取二维码图片</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>二维码图片</h1>
+<div id="qrcode-container"></div>
+
+<script>
+    // 手动设置本地 Cookie
+    document.cookie = "PHPSESSID=9f4m2h1es21toag7kbcvus3e5r; path=/; domain=xjjz.p1a.cn";
+    document.cookie = "gid=0; path=/; domain=xjjz.p1a.cn";
+    document.cookie = "think_var=zh-cn; path=/; domain=xjjz.p1a.cn";
+
+    // 发起 AJAX 请求
+    $.ajax({
+        url: "https://xjjz.p1a.cn/storeadmin/tuiguang_user_qrcode/get_qrcode_xhs",
+        type: "POST",
+        xhrFields: {
+            // responseType: 'blob', // 确保响应数据是 Blob 类型
+            withCredentials: true  // 允许跨域传递 Cookie
+        },
+        success: function(data) {
+            if (data instanceof Blob) {
+                // 将 Blob 对象转换为文本
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    console.log("Blob 内容: ", event.target.result);
+                };
+                reader.readAsText(data);
+
+                // 创建图片 URL
+                var imgURL = URL.createObjectURL(data);
+                var img = $('<img>').attr('src', imgURL).attr('alt', '二维码图片');
+                $('#qrcode-container').append(img);
+            } else {
+                console.log(data);
+                console.error("响应数据不是 Blob 对象");
+            }
+        }
+        ,
+        error: function(xhr, status, error) {
+            console.error("请求失败，状态码：" + xhr.status + " 错误信息：" + error);
+        }
+    });
+
+
+</script>
+</body>
+</html>
